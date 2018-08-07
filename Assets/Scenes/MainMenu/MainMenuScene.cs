@@ -18,13 +18,9 @@ public class MainMenuScene : MonoBehaviour
 			"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDjXdFlwmrJDowfI7NjXtD0/U1uG7i567S9QgrhZDJRS52+sSDc7IcVFrTCIzl/QeE8yKaJjQdr9ZjmCD22ZYBUkSwkOrbtAqMnmPk13AOy9A+95q1PI0SnZeGPLejFLQNxPUEaSbKMKCwqeqTCCvh4toMby87ZtlvlVHs3KDS1+QIDAQAB");
 	}
 	
-	public void GoToPurchase()
+	public void ChangeScene(string sceneName)
 	{
-			SceneManager.LoadScene("Purchase") ; 
+			SceneManager.LoadScene(sceneName) ; 
 	}
 
-	public void GoToGameService()
-	{
-		SceneManager.LoadScene("Services") ; 
-	}
 }

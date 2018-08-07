@@ -13,18 +13,19 @@ public class ArioGameService : MonoBehaviour
     private AndroidJavaClass androidClass;
 #endif
 
+    private Action<bool> _onLoginStateListener = null;
+
+    public System.Action<bool> OnLoginStateListener
+    {
+        get {return _onLoginStateListener;}
+        set {_onLoginStateListener = value;}
+    }
+
     private Action<bool> _onConnectListener = null;
     public System.Action<bool> OnConnectListener
     {
         get { return _onConnectListener; }
         set { _onConnectListener = value; }
-    }
-
-    private Action _onDisconnectListener = null;
-    public System.Action OnDisconnectListener
-    {
-        get { return _onDisconnectListener; }
-        set { _onDisconnectListener = value; }
     }
 
        private Action<string> _onGetAchievementInfo = null;
@@ -57,6 +58,14 @@ public class ArioGameService : MonoBehaviour
     public void init(string app_id, string secret_key) {
         this.APP_ID = app_id;
         this.SECRET_KEY = secret_key;
+    }
+
+    public void setAutoStartSignInFlow(bool isAutoStartSignInFlow) {
+        Debug.Log("AriogameService: set auto start sign in flow into " + isAutoStartSignInFlow);
+
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("setAutoStartSignInFlow", isAutoStartSignInFlow);
+        #endif
     }
 
     void Awake()
@@ -98,31 +107,22 @@ public class ArioGameService : MonoBehaviour
         #endif
     }
 
-    private void OnConnectedToArioListener(String response )
-    {
-        bool result = (response == "1") ? true : false;
-
-        Debug.Log("ArioGameService : OnConnectSucceedJavaListener() is called , Ario is" + ( (!result)? "not connected" : "connected") );
-        if (_onConnectListener != null )
-            _onConnectListener( result); 
-    }
-
     public void SignOut()
     {
         Debug.Log("ArioGameService :  SignOut() is called");
 
         #if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
-            androidClass.CallStatic("signOut",
-                                    gameObject.name,
-                                    "OnDisconnectedFromArioListener") ; 
+            androidClass.CallStatic("signOut") ; 
         #endif
     }
 
-    private void OnDisconnectedFromArioListener()
-    {
-        Debug.Log("ArioGameService : OnDisconnectedFromArioListener() is called");
-        if (_onDisconnectListener != null)
-            _onDisconnectListener();
+    public void isLogin() {
+        Debug.Log("ArioGameService :  isLogin() called");
+        #if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("isLoginInArio",
+                                    gameObject.name,
+                                    "OnLoginStateInArioListener" );
+        #endif
     }
 
     public bool IsConnected()
@@ -136,6 +136,22 @@ public class ArioGameService : MonoBehaviour
         Debug.Log("ArioGameService :  IsConnected() is called , Ario is " + ( (result) ? "connected" : " not connected") );
 
         return result; 
+    }
+
+
+    private void OnLoginStateInArioListener(String response) {
+        bool result = (response == "1") ? true : false;
+        Debug.Log("ArioGameService : OnLoginStateInArioListener() is called , User in Ario" + ( (result)? "is Login" : "not Login") );
+        if(_onLoginStateListener != null)
+            _onLoginStateListener(result);
+    }
+    private void OnConnectedToArioListener(String response )
+    {
+        bool result = (response == "1") ? true : false;
+
+        Debug.Log("ArioGameService : OnConnectSucceedJavaListener() is called , Ario is" + ( (!result)? "not connected" : "connected") );
+        if (_onConnectListener != null )
+            _onConnectListener( result); 
     }
     
 

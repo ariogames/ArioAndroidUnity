@@ -29,27 +29,7 @@ public class ServicesScene : MonoBehaviour
         message.fontSize = DEFAULT_FONT_SIZE;
     }
 
-    public void SignIn()
-    {
-        ArioGameService.Instance.OnConnectListener = OnConnectListener;
-        ArioGameService.Instance.SignIn();
-        message.text = "Sign in called";
-        message.fontSize = DEFAULT_FONT_SIZE;
-    }
-
-    public void SignOut()
-    {
-        ArioGameService.Instance.OnDisconnectListener = OnDisconnectListener;
-        ArioGameService.Instance.SignOut();
-        message.text = "Sign out called";
-        message.fontSize = DEFAULT_FONT_SIZE;
-    }
-
-    public void IsConnected()
-    {
-        message.text = (ArioGameService.Instance.IsConnected()) ? " Ario is connected " : " Ario is not connected";
-        message.fontSize = DEFAULT_FONT_SIZE;
-    }
+    
 
     public void UnlockAchievement()
     {
@@ -136,17 +116,6 @@ public class ServicesScene : MonoBehaviour
         message.fontSize = DEFAULT_FONT_SIZE;
     }
 
-    private void OnDisconnectListener()
-    {
-        message.text = "Ario successfully disconnected";
-        message.fontSize = DEFAULT_FONT_SIZE;
-    }
-
-    private void OnConnectListener(bool isConnected)
-    {
-        message.text = isConnected ? " Ario connected successfully" : " Ario connection failed";
-        message.fontSize = DEFAULT_FONT_SIZE;
-    }
 
     public void OnGetAchievementInfo(string achievement)
     {
