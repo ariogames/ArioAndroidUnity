@@ -4,6 +4,7 @@ Assets/Scenes/MainMenu/MainMenu.unity
 Assets/Scenes/Authentication/Auth.unity
 Assets/Scenes/Purchase/Purchase.unity
 Assets/Scenes/Services/Services.unity
+Assets/Scenes/Achievement/Achievement.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 970a95104359198fe1a98ef48655de8c UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -145,6 +146,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ArioGameService
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
+c761f2e500a36c11fda1cc65473df706 Assembly-CSharp.dll:.AchievementScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ArioInAppPurchase
 e4c1dccd0e56cffcc77e68bcade8cbe6 Assembly-CSharp.dll:.ServicesScene
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MainMenuScene

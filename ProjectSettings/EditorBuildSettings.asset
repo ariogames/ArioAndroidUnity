@@ -26,3 +26,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Services/Services.unity
     guid: e89507074897fd243920160d7321ce86
+  - enabled: 1
+    path: Assets/Scenes/Achievement/Achievement.unity
+    guid: 8728c753f1517894ba8d49c0b75b0c9c

@@ -31,62 +31,12 @@ public class ServicesScene : MonoBehaviour
 
     
 
-    public void UnlockAchievement()
-    {
-        // you can use 60 as achievement id for test, which is TEST_ACHIEVEMENT in Ario Run&Jump sample game
-        // keep in mind that achievement is given to user if user has installed your app from Ario, 
-        // otherwise this has no effect; 
-        if (input != null && input.text != null && input.text.Length > 0)
-        {
-            ArioGameService.Instance.UnlockAchievement(input.text);
-            message.text = "Unlock Achievement called";
-            message.fontSize = DEFAULT_FONT_SIZE;
-        }
-        else
-        {
-            message.text = "Enter Achievement id first";
-            message.fontSize = DEFAULT_FONT_SIZE;
-        }
+   
 
-    }
 
-    public void IncrementAchievement()
-    {   // you can use 60 as achievement id for test, which is TEST_ACHIEVEMENT in Ario Run&Jump sample game
-        // keep in mind that achievement is given to user if user has installed your app from Ario, 
-        // otherwise this has no effect; 
-        if (input != null && input.text != null && input.text.Length > 0)
-        {
-            ArioGameService.Instance.IncrementAchievement(input.text, 1);
-            message.text = "Increment Achievement called";
-            message.fontSize = DEFAULT_FONT_SIZE;
-        }
-        else
-        {
-            message.text = "Enter Achievement id first";
-            message.fontSize = DEFAULT_FONT_SIZE;
-        }
-    }
 
-    public void ShowAllAchievements()
-    {
-        ArioGameService.Instance.ShowAllAchievements();
-        message.text = "Show all achievements called";
-        message.fontSize = DEFAULT_FONT_SIZE;
-    }
 
-    public void GetAchievement()
-    {
-        if (input != null && input.text != null && input.text.Length > 0)
-        {
-            ArioGameService.Instance.LoadAchievement(input.text);
-            ArioGameService.Instance.OnGetAchievementInfo = OnGetAchievementInfo;
-        }
-        else
-        {
-            message.text = "Enter Achievement id first";
-            message.fontSize = DEFAULT_FONT_SIZE;
-        }
-    }
+
 
     public void SubmitScoreToLeaderboard()
     {

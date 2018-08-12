@@ -51,8 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Ario\Achievement.cs" />
      <Compile Include="Assets\Ario\ArioGameService.cs" />
      <Compile Include="Assets\Ario\ArioInAppPurchase.cs" />
+     <Compile Include="Assets\Scenes\Achievement\AchievementScript.cs" />
      <Compile Include="Assets\Scenes\Authentication\AuthenticationScript.cs" />
      <Compile Include="Assets\Scenes\MainMenu\MainMenuScene.cs" />
      <Compile Include="Assets\Scenes\Purchase\PurchaseScene.cs" />

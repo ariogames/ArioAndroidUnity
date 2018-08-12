@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AuthenticationScript : MonoBehaviour {
 
@@ -13,8 +14,10 @@ public class AuthenticationScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+    void Update()
+	{
+		if (Input.GetKeyDown (KeyCode.Escape))
+			SceneManager.LoadScene(0);
 	}
 
 	public void SignIn()
