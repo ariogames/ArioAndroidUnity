@@ -26,7 +26,12 @@ public class PurchaseScene : MonoBehaviour
         ArioInAppPurchase.Instance.OnPurchseSucceed = this.OnPurchasedSucced;
     }
 
-
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            SceneManager.LoadScene(0);
+    }
+    
     public void OnPurchaseFailed(string error )
     {
         message.text = " Purachse failed \n" + error; 
