@@ -19,8 +19,8 @@ public class AchievementScript : MonoBehaviour {
 	void Start () {
 		
 	}
-
     void Update()
+
 	{
 		if (Input.GetKeyDown (KeyCode.Escape))
 			SceneManager.LoadScene(0);
@@ -67,6 +67,7 @@ public class AchievementScript : MonoBehaviour {
     {
         Debug.LogError("AriogameService achievement List size: " + achievementList.list.Length);
         if (achievementList.list.Length > 0) {
+            Debug.LogError("xp is 1 : " + achievementList.list[0].xp + " / xp is 2 : " + achievementList.list[1].xp +  " / xp is 3 : " + achievementList.list[2].xp);
             AchievementList.Achievement achievementOne = achievementList.list[0];
             textAchievementOne.text = "\nname: "+achievementOne.name+"\ndescription: "+achievementOne.description+"\ntotalStep: "+achievementOne.totalStep.ToString()+"\ncurrentStep: "+achievementOne.currentStep.ToString()+"\nisUnlock: " + (achievementOne.isUnlock);
             AchievementList.Achievement achievementTwo = achievementList.list[1];

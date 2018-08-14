@@ -29,52 +29,5 @@ public class ServicesScene : MonoBehaviour
         message.fontSize = DEFAULT_FONT_SIZE;
     }
 
-    
 
-   
-
-
-
-
-
-
-    public void SubmitScoreToLeaderboard()
-    {
-        long score;
-        if (input != null && input.text != null && input.text.Length > 0 && long.TryParse(input.text, out score))
-        {
-            ArioGameService.Instance.SubmitScoreToLeaderboard(leaderboardID, long.Parse(input.text));
-        }
-        else
-        {
-            message.text = "Enter Score, must be number!";
-            message.fontSize = DEFAULT_FONT_SIZE;
-        }
-    }
-
-    public void ShowLeaderboard()
-    {
-        ArioGameService.Instance.ShowLeaderboard(leaderboardID);
-        message.text = "Show leaderboard " + leaderboardID + " called";
-        message.fontSize = DEFAULT_FONT_SIZE;
-    }
-
-    public void ShowAllLeaderboards()
-    {
-        ArioGameService.Instance.ShowAllLeaderboards();
-        message.text = "Show all leaderboards called";
-        message.fontSize = DEFAULT_FONT_SIZE;
-    }
-
-
-    public void OnGetAchievementInfo(string achievement)
-    {
-        message.text = achievement;
-        message.fontSize = 18;
-    }
-
-    public void onBackPressed()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
 }

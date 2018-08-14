@@ -30,7 +30,7 @@ public class ArioGameService : MonoBehaviour
     }
 
     private String APP_ID = "";
-    private String SECRET_KEY = "";
+    private String APP_KEY = "";
 
     static private ArioGameService _instance = null;
     static public ArioGameService Instance
@@ -49,28 +49,28 @@ public class ArioGameService : MonoBehaviour
     }
 
 
-    public void init(string app_id, string secret_key)
+    public void init(string app_id, string APP_KEY)
     {
         this.APP_ID = app_id;
-        this.SECRET_KEY = secret_key;
+        this.APP_KEY = APP_KEY;
     }
 
     public void setAutoStartSignInFlow(bool isAutoStartSignInFlow)
     {
         Debug.Log("AriogameService: set auto start sign in flow into " + isAutoStartSignInFlow);
 
-#if (UNITY_ANDROID) && !UNITY_EDITOR
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
             androidClass.CallStatic("setAutoStartSignInFlow", isAutoStartSignInFlow);
-#endif
+        #endif
     }
 
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-#if !UNITY_EDITOR && UNITY_ANDROID
+        #if !UNITY_EDITOR && UNITY_ANDROID
             AndroidJNI.AttachCurrentThread();
             androidClass = new AndroidJavaClass("com.arioclub.unity.sdk.android.ArioUnitySdkInterface");         
-#endif
+        #endif
     }
 
     public bool IsStorePackageInstalled()
@@ -79,9 +79,9 @@ public class ArioGameService : MonoBehaviour
 
         Debug.Log("ArioGameService : IsStorePackageInstalled() is called  ");
 
-#if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
             isAppInstalled = (bool)androidClass.CallStatic<bool>( "isStorePackageInstalled" );
-#endif
+        #endif
 
         if (isAppInstalled)
             Debug.Log("Ario android app is installed");
@@ -92,34 +92,34 @@ public class ArioGameService : MonoBehaviour
         return isAppInstalled;
     }
 
-
+//================================================================================================= Authentication
     public void SignIn()
     {
         Debug.Log("ArioGameService :  SignIn() called");
-#if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
             androidClass.CallStatic("signIn",
                                     gameObject.name,
                                     "OnConnectedToArioListener" );
-#endif
+        #endif
     }
 
     public void SignOut()
     {
         Debug.Log("ArioGameService :  SignOut() is called");
 
-#if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
             androidClass.CallStatic("signOut") ; 
-#endif
+        #endif
     }
 
     public void isLogin()
     {
         Debug.Log("ArioGameService :  isLogin() called");
-#if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
             androidClass.CallStatic("isLoginInArio",
                                     gameObject.name,
                                     "OnLoginStateInArioListener" );
-#endif
+        #endif
     }
 
     public bool IsConnected()
@@ -127,9 +127,9 @@ public class ArioGameService : MonoBehaviour
         bool result = false;
 
 
-#if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
             result =  (bool) androidClass.CallStatic<bool>("isConnetedToArio");
-#endif
+        #endif
         Debug.Log("ArioGameService :  IsConnected() is called , Ario is " + ((result) ? "connected" : " not connected"));
 
         return result;
@@ -153,6 +153,8 @@ public class ArioGameService : MonoBehaviour
     }
 
 
+//================================================================================================= Achievement
+
     public void UnlockAchievement(string achievementID)
     {
         int temp;
@@ -162,9 +164,9 @@ public class ArioGameService : MonoBehaviour
             return;
         }
 
-#if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
-            androidClass.CallStatic("unlockAchievement", achievementID, SECRET_KEY) ; 
-#endif
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("unlockAchievement", achievementID, APP_KEY) ; 
+        #endif
 
         Debug.Log("ArioGameService :  UnlockAchievement() is called");
     }
@@ -178,9 +180,9 @@ public class ArioGameService : MonoBehaviour
             return;
         }
 
-#if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
-            androidClass.CallStatic("incrementAchievement", achievementID, incrementNumber, SECRET_KEY) ; 
-#endif
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("incrementAchievement", achievementID, incrementNumber, APP_KEY) ; 
+        #endif
         Debug.Log("ArioGameService :  IncrementAchievement() is called");
 
     }
@@ -194,55 +196,10 @@ public class ArioGameService : MonoBehaviour
             return;
         }
 
-#if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
             androidClass.CallStatic("showAllAchievements", APP_ID) ; 
-#endif
+        #endif
         Debug.Log("ArioGameService :  ShowAllAchievements() is called");
-
-    }
-
-    public void SubmitScoreToLeaderboard(string leaderboardID, long score)
-    {
-        int temp;
-        if (!(int.TryParse(leaderboardID, out temp) && int.TryParse(APP_ID, out temp)))
-        {
-            Debug.LogError("ArioGameService :  Invalid leaderboardID or APP_ID: " + leaderboardID + ", " + APP_ID);
-            return;
-        }
-
-#if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
-            androidClass.CallStatic("submitScore", leaderboardID, score.ToString(), APP_ID, SECRET_KEY) ; 
-#endif
-        Debug.Log("ArioGameService :  SubmitScoreToLeaderboard() is called");
-    }
-
-    public void ShowLeaderboard(string leaderboardID)
-    {
-        int temp;
-        if (!(int.TryParse(leaderboardID, out temp) && int.TryParse(APP_ID, out temp)))
-        {
-            Debug.LogError("ArioGameService :  Invalid leaderboardID or APP_ID: " + leaderboardID + ", " + APP_ID);
-            return;
-        }
-
-#if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
-            androidClass.CallStatic("showLeaderboard", leaderboardID, APP_ID) ; 
-#endif
-        Debug.Log("ArioGameService :  ShowLeaderboard() is  called");
-    }
-
-    public void ShowAllLeaderboards()
-    {
-        int temp;
-        if (!int.TryParse(APP_ID, out temp))
-        {
-            Debug.LogError("ArioGameService :  Invalid APP_ID: " + APP_ID);
-            return;
-        }
-#if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
-            androidClass.CallStatic("showAllLeaderboards", APP_ID) ; 
-#endif
-        Debug.Log("ArioGameService :  ShowAllLeaderboards() is  called");
 
     }
 
@@ -262,12 +219,12 @@ public class ArioGameService : MonoBehaviour
             return;
         }
 
-#if (UNITY_IPHONE || UNITY_ANDROID) && !UNITY_EDITOR
+            #if (UNITY_ANDROID) && !UNITY_EDITOR
             androidClass.CallStatic("loadAchievement",
                                     gameObject.name,
                                     "OnGetAchievement",
                                     APP_ID) ; 
-#endif
+            #endif
     }
 
     private void OnGetAchievement(string achievementArray)
@@ -282,4 +239,148 @@ public class ArioGameService : MonoBehaviour
             Debug.Log("ArioGameService :  onGetAchievement Callback not defined!!");
         }
     }
+
+
+    //================================================================================================= Leaderboard
+
+    public void SubmitScoreToLeaderboard(string leaderboardID, long score)
+    {
+         if (APP_ID.Equals("") || APP_KEY.Equals(""))
+        {
+            Debug.LogError("ArioGameService :  Invalid  APP_ID: " + APP_ID);
+            return;
+        }
+
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("submitScore", leaderboardID, score.ToString(), APP_ID, APP_KEY) ; 
+        #endif
+        Debug.Log("ArioGameService :  SubmitScoreToLeaderboard() is called");
+    }
+
+    public void ShowLeaderboard(string leaderboardID)
+    {
+        int temp;
+        if (!(int.TryParse(leaderboardID, out temp) && int.TryParse(APP_ID, out temp)))
+        {
+            Debug.LogError("ArioGameService :  Invalid leaderboardID or APP_ID: " + leaderboardID + ", " + APP_ID);
+            return;
+        }
+
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+                androidClass.CallStatic("showLeaderboard", leaderboardID, APP_ID) ; 
+        #endif
+            Debug.Log("ArioGameService :  ShowLeaderboard() is  called");
+    }
+
+    public void ShowAllLeaderboards()
+    {
+        int temp;
+        if (!int.TryParse(APP_ID, out temp))
+        {
+            Debug.LogError("ArioGameService :  Invalid APP_ID: " + APP_ID);
+            return;
+        }
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("showAllLeaderboards", APP_ID) ; 
+        #endif
+        Debug.Log("ArioGameService :  ShowAllLeaderboards() is  called");
+
+    }
+
+    private Action<LeaderboardList> _OnGetLeaderboardsMetadata = null;
+    public Action<LeaderboardList> onGetLeaderboardsMetada 
+    {
+        get {return _OnGetLeaderboardsMetadata;}
+        set {_OnGetLeaderboardsMetadata = value;}
+    }
+    public void loadLeaderboardsMetadata() {
+        if (APP_ID.Equals("") || APP_KEY.Equals(""))
+        {
+            Debug.LogError("ArioGameService :  Invalid  APP_ID: " + APP_ID);
+            return;
+        }
+
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("loadAllLeaderboardMetadata", gameObject.name, "OnGetLeaderboardsMetadata", APP_ID, APP_KEY) ; 
+        #endif      
+        Debug.Log("ArioGameService :  loadLeaderboardsMetadata() is called");
+    }
+
+    private void OnGetLeaderboardsMetadata(string leaderboardsMetadata) 
+    {
+        if (_OnGetLeaderboardsMetadata != null)
+        {
+            LeaderboardList result = JsonUtility.FromJson<LeaderboardList>(leaderboardsMetadata);
+            _OnGetLeaderboardsMetadata(result);
+        }
+        else
+        {
+            Debug.Log("ArioGameService :  OnGetLeaderboard Callback not defined!!");
+        }
+    }
+
+    private Action<ScoreList> _OnGetLeaderboardScore = null;
+    public Action<ScoreList> onGetLeaderboardScore 
+    {
+        get {return _OnGetLeaderboardScore;}
+        set {_OnGetLeaderboardScore = value;}
+    }
+    public void loadLeaderboardScore(string leaderboardID, int timeSpan, int leaderboardCollection, int maxResult) {
+        if (APP_ID.Equals("") || APP_KEY.Equals(""))
+        {
+            Debug.LogError("ArioGameService :  Invalid  APP_ID: " + APP_ID);
+            return;
+        }
+
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("loadLeaderboardRecords", gameObject.name, "OnGetLeaderboardScore", leaderboardID, timeSpan, leaderboardCollection, maxResult, APP_ID, APP_KEY); 
+        #endif      
+        Debug.Log("ArioGameService :  loadLeaderboardScore() is called");
+    }
+
+    private void OnGetLeaderboardScore(string leaderboardScores) 
+    {
+        if (_OnGetLeaderboardScore != null)
+        {
+            ScoreList result = JsonUtility.FromJson<ScoreList>(leaderboardScores);
+            _OnGetLeaderboardScore(result);
+        }
+        else
+        {
+            Debug.Log("ArioGameService :  OnGetLeaderboard Callback not defined!!");
+        }
+    }
+
+    private Action<ScoreList> _OnGetLeaderboardScoreCurrentPlayer = null;
+    public Action<ScoreList> onGetLeaderboardScoreCurrentPlayer
+    {
+        get {return _OnGetLeaderboardScoreCurrentPlayer;}
+        set {_OnGetLeaderboardScoreCurrentPlayer = value;}
+    }
+    public void loadLeaderboardScoreCurrentPlayer(string leaderboardID, int timeSpan, int leaderboardCollection) {
+        if (APP_ID.Equals("") || APP_KEY.Equals(""))
+        {
+            Debug.LogError("ArioGameService :  Invalid  APP_ID: " + APP_ID);
+            return;
+        }
+
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("loadCurrentPlayerRecord", gameObject.name, "OnGetLeaderboardScoreCurrentPlayer", leaderboardID, timeSpan, leaderboardCollection, APP_ID, APP_KEY); 
+        #endif      
+        Debug.Log("ArioGameService :  loadLeaderboardScoreCurrentPlayer() is called");
+    }
+
+    private void OnGetLeaderboardScoreCurrentPlayer(string leaderboardScores) 
+    {
+        if (_OnGetLeaderboardScore != null)
+        {
+            ScoreList result = JsonUtility.FromJson<ScoreList>(leaderboardScores);
+            _OnGetLeaderboardScoreCurrentPlayer(result);
+        }
+        else
+        {
+            Debug.Log("ArioGameService :  OnGetLeaderboard Callback not defined!!");
+        }
+    }
+
 }
