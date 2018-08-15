@@ -398,6 +398,39 @@ public class ArioGameService : MonoBehaviour
         }
     }
 
+    private Action<ScoreList> _OnGetCenteredPlayerScore = null;
+    public Action<ScoreList> onGetCenteredPlayerScore 
+    {
+        get {return _OnGetCenteredPlayerScore;}
+        set {_OnGetCenteredPlayerScore = value;}
+    }
+    public void loadCenteredPlayerScore(string leaderboardID, int timeSpan, int leaderboardCollection, int maxResult) {
+        if (APP_ID.Equals("") || APP_KEY.Equals(""))
+        {
+            Debug.LogError("ArioGameService :  Invalid  APP_ID: " + APP_ID);
+            return;
+        }
+
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("loadPlayerCenteredRecords", gameObject.name, "OnGetCenteredPlayerScore", leaderboardID, timeSpan, leaderboardCollection, maxResult, APP_ID, APP_KEY); 
+        #endif      
+        Debug.Log("ArioGameService :  loadLeaderboardScore() is called");
+    }
+
+    private void OnGetCenteredPlayerScore(string leaderboardScores) 
+    {
+        if (_OnGetCenteredPlayerScore != null)
+        {
+            ScoreList result = JsonUtility.FromJson<ScoreList>(leaderboardScores);
+            _OnGetCenteredPlayerScore(result);
+        }
+        else
+        {
+            Debug.Log("ArioGameService :  OnGetCenteredPlayerScore Callback not defined!!");
+        }
+    }
+
+
     //================================================================================================= Social Services
 
     public void ShowScreeenShotPage()
