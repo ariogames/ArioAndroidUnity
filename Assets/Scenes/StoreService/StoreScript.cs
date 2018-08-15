@@ -26,7 +26,9 @@ public class StoreScript : MonoBehaviour {
 	}
 
 	private void OnCheckUpdateResult(int version) {
-		if (version == -1) {
+		if (version == -2) {
+			textCheckUpdate.text = "invalid result";
+		} else if (version == -1) {
 			textCheckUpdate.text = "game is on last version (currently up to date)";
 		} else {
 			textCheckUpdate.text = "new version available. version_code: " + version;
