@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using System;
-using UnityEngine.UI;
-using System.Collections;
+﻿using System;
 using System.IO;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 using Ario.Models;
 
 
@@ -381,6 +381,49 @@ public class ArioGameService : MonoBehaviour
         {
             Debug.Log("ArioGameService :  OnGetLeaderboard Callback not defined!!");
         }
+    }
+
+    //================================================================================================= Social Services
+
+    public void ShowScreeenShotPage()
+    {
+        if (APP_ID.Equals(""))
+        {
+            Debug.LogError("ArioGameService :  Invalid  APP_ID: " + APP_ID);
+            return;
+        }
+        
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+        if(IsStorePackageInstalled()) {
+            string timeStamp = System.DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
+            Debug.LogError("ArioGameService :  TimeStamp: " + timeStamp);
+            string fileName = "Screeenshot" + timeStamp + ".png";
+            Debug.LogError("ArioGameService :  fileName: " + fileName);
+            ScreenCapture.CaptureScreenshot(fileName);
+            string[] pathes = Directory.GetFiles(Application.persistentDataPath + "/", "*.png");
+            Debug.LogError("ArioGameService :  pathes: " + pathes.ToString());
+            androidClass.CallStatic("showPostScreenshot", pathes[0], APP_ID); 
+        }
+        #endif   
+
+        Debug.LogError("ArioGameService :  ShowScreeenShotPage called");
+    }
+
+
+    public void RateOnGame()
+    {
+        if (APP_ID.Equals(""))
+        {
+            Debug.LogError("ArioGameService :  Invalid  APP_ID: " + APP_ID);
+            return;
+        }
+        
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+        if(IsStorePackageInstalled())
+            androidClass.CallStatic("rateOnGame"); 
+        #endif   
+
+        Debug.LogError("ArioGameService :  RateOnGame called");
     }
 
 }
