@@ -6,6 +6,7 @@ Assets/Scenes/Purchase/Purchase.unity
 Assets/Scenes/Achievement/Achievement.unity
 Assets/Scenes/Leaderboard/Leaderboard.unity
 Assets/Scenes/SocialService/SocialService.unity
+Assets/Scenes/StoreService/StoreService.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 970a95104359198fe1a98ef48655de8c UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -152,3 +153,4 @@ c761f2e500a36c11fda1cc65473df706 Assembly-CSharp.dll:.AchievementScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ArioInAppPurchase
 c0eeb17f237968a469f7c5e85d8c4b40 Assembly-CSharp.dll:.LeaderboardScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MainMenuScene
+f1236efcb665a04768ecb6e3f9090036 Assembly-CSharp.dll:.StoreScript

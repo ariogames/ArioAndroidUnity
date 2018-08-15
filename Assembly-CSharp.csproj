@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scenes\MainMenu\MainMenuScene.cs" />
      <Compile Include="Assets\Scenes\Purchase\PurchaseScene.cs" />
      <Compile Include="Assets\Scenes\SocialService\SocialScript.cs" />
+     <Compile Include="Assets\Scenes\StoreService\StoreScript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

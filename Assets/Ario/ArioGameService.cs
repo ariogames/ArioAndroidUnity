@@ -396,12 +396,9 @@ public class ArioGameService : MonoBehaviour
         #if (UNITY_ANDROID) && !UNITY_EDITOR
         if(IsStorePackageInstalled()) {
             string timeStamp = System.DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
-            Debug.LogError("ArioGameService :  TimeStamp: " + timeStamp);
             string fileName = "Screeenshot" + timeStamp + ".png";
-            Debug.LogError("ArioGameService :  fileName: " + fileName);
             ScreenCapture.CaptureScreenshot(fileName);
             string[] pathes = Directory.GetFiles(Application.persistentDataPath + "/", "*.png");
-            Debug.LogError("ArioGameService :  pathes: " + pathes.ToString());
             androidClass.CallStatic("showPostScreenshot", pathes[0], APP_ID); 
         }
         #endif   
@@ -409,6 +406,24 @@ public class ArioGameService : MonoBehaviour
         Debug.LogError("ArioGameService :  ShowScreeenShotPage called");
     }
 
+    public void ShowScreeenShotPage(string fileName)
+    {
+        if (APP_ID.Equals(""))
+        {
+            Debug.LogError("ArioGameService :  Invalid  APP_ID: " + APP_ID);
+            return;
+        }
+        
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+        if(IsStorePackageInstalled()) {
+            androidClass.CallStatic("showPostScreenshot", fileName, APP_ID); 
+        } else {
+            Debug.LogError("Ario Application not installed on this device");    
+        }
+        #endif   
+
+        Debug.LogError("ArioGameService :  ShowScreeenShotPage called");
+    }
 
     public void RateOnGame()
     {
@@ -419,11 +434,68 @@ public class ArioGameService : MonoBehaviour
         }
         
         #if (UNITY_ANDROID) && !UNITY_EDITOR
-        if(IsStorePackageInstalled())
+        if(IsStorePackageInstalled()) {
             androidClass.CallStatic("rateOnGame"); 
+        } else {
+            Debug.LogError("Ario Application not installed on this device");    
+        }
         #endif   
 
         Debug.LogError("ArioGameService :  RateOnGame called");
     }
 
+    //================================================================================================= Store Services
+
+    public void ShowGamePage() {
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+        if(IsStorePackageInstalled()) {
+            androidClass.CallStatic("showGamePage"); 
+        } else {
+            Debug.LogError("Ario Application not installed on this device");    
+        }
+        #endif   
+
+        Debug.LogError("ArioGameService :  ShowGamePage called");
+    }
+
+    public void ShowDeveloperPage(string developerId) {
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+        if(IsStorePackageInstalled()) {
+            androidClass.CallStatic("showDeveloperPage", developerId); 
+        } else {
+            Debug.LogError("Ario Application not installed on this device");    
+        }
+        #endif   
+
+        Debug.LogError("ArioGameService :  ShowDeveloperPage called");
+    }
+
+    private Action<int> _OnCheckUpdate = null;
+    public Action<int> onCheckUpdate
+    {
+        get {return _OnCheckUpdate;}
+        set {_OnCheckUpdate = value;}
+    }
+
+    public void CheckUpdate() {
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+        if(IsStorePackageInstalled()) {
+            androidClass.CallStatic("checkUpdateForGame", gameObject.name, "OnCheckUpdate"); 
+        } else {
+            Debug.LogError("Ario Application not installed on this device");    
+        }
+        #endif   
+
+        Debug.LogError("ArioGameService :  Check Update called");
+    }
+
+    private void OnCheckUpdate(string result) {
+        int version = 0;
+        if (int.TryParse(result, out version)) {
+            version = Int32.Parse(result);
+        } else {
+            version = -2;
+        }
+        _OnCheckUpdate(version);
+    }
 }
