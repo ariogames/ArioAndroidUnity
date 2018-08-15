@@ -187,6 +187,21 @@ public class ArioGameService : MonoBehaviour
 
     }
 
+    public void SetStepAchievement(string achievementID, int StepNumber)
+    {
+        int temp;
+        if (!int.TryParse(achievementID, out temp))
+        {
+            Debug.LogError("ArioGameService :  Invalid achivementId: " + achievementID);
+            return;
+        }
+
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("setStepAchievement", achievementID, StepNumber, APP_KEY) ; 
+        #endif
+        Debug.Log("ArioGameService :  SetStepAchievement() is called");
+
+    }
     public void ShowAllAchievements()
     {
         int temp;
