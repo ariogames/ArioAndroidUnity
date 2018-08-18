@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Ario.Models;
 
 public class AuthenticationScript : MonoBehaviour {
 
@@ -59,5 +60,18 @@ public class AuthenticationScript : MonoBehaviour {
     {
         message.text = isLogin ? " User in Ario is Login" : "User in Ario is not Logged In";
         message.fontSize = DEFAULT_FONT_SIZE;
+    }
+
+    public void getPlayerInfo() {
+        ArioGameService.Instance.onGetPlayerInfo = OnGetPlayerInfo;
+        ArioGameService.Instance.LoadPlayerData();
+    }
+
+    private void OnGetPlayerInfo(Player player) {
+        if (player.id.Equals("")) {
+            message.text = "player still not logged in.";
+        } else {
+            message.text = "id: " + player.id + "  |  name: " + player.name + "  |  isPulbic:" + player.isPublic.ToString() + "  |  level: " + player.level.ToString();
+        }
     }
 }

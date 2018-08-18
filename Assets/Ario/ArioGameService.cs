@@ -151,6 +151,27 @@ public class ArioGameService : MonoBehaviour
         if (_onConnectListener != null)
             _onConnectListener(result);
     }
+    
+    private Action<Player> _OnGetPlayerInfo = null;
+    public Action<Player> onGetPlayerInfo 
+    {
+        get {return _OnGetPlayerInfo;}
+        set {_OnGetPlayerInfo = value;}
+    }
+    public void LoadPlayerData() {
+        Debug.Log("ArioGameService :  LoadPlayerData called");
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("getUserInfo", gameObject.name, "OnGetPlayerInfo") ; 
+        #endif
+    }
+
+    private void OnGetPlayerInfo(string response) {
+        if (_OnGetPlayerInfo != null) {
+            _OnGetPlayerInfo(JsonUtility.FromJson<Player>(response));
+        } else {
+             Debug.Log("ArioGameService :  OnGetPLayerInfo Callback not defined!!");
+        }
+    }
 
 
 //================================================================================================= Achievement

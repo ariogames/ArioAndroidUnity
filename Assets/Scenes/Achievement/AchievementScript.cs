@@ -69,11 +69,11 @@ public class AchievementScript : MonoBehaviour {
         if (achievementList.list.Length > 0) {
             Debug.LogError("xp is 1 : " + achievementList.list[0].xp + " / xp is 2 : " + achievementList.list[1].xp +  " / xp is 3 : " + achievementList.list[2].xp);
             AchievementList.Achievement achievementOne = achievementList.list[0];
-            textAchievementOne.text = "\nname: "+achievementOne.name+"\ndescription: "+achievementOne.description+"\ntotalStep: "+achievementOne.totalStep.ToString()+"\ncurrentStep: "+achievementOne.currentStep.ToString()+"\nisUnlock: " + (achievementOne.isUnlock);
+            textAchievementOne.text = "\nname: "+achievementOne.name+"\ndescription: "+achievementOne.description+"\ntotalStep: "+achievementOne.totalStep.ToString()+"\ncurrentStep: "+achievementOne.currentStep.ToString()+"\nisUnlock: " + (achievementOne.isUnlock) + "\nxp: " + (achievementOne.xp);
             AchievementList.Achievement achievementTwo = achievementList.list[1];
-            textAchievementTwo.text = "\nname: "+achievementTwo.name+"\ndescription: "+achievementTwo.description+"\ntotalStep: "+achievementTwo.totalStep.ToString()+"\ncurrentStep: "+achievementTwo.currentStep.ToString()+"\nisUnlock: " + (achievementTwo.isUnlock);
+            textAchievementTwo.text = "\nname: "+achievementTwo.name+"\ndescription: "+achievementTwo.description+"\ntotalStep: "+achievementTwo.totalStep.ToString()+"\ncurrentStep: "+achievementTwo.currentStep.ToString()+"\nisUnlock: " + (achievementTwo.isUnlock) +"\nxp: " + (achievementTwo.xp);
             AchievementList.Achievement achievementThree = achievementList.list[2];
-            textAchievementThree.text = "\nname: "+achievementThree.name+"\ndescription: "+achievementThree.description+"\ntotalStep: "+achievementThree.totalStep.ToString()+"\ncurrentStep: "+achievementThree.currentStep.ToString()+"\nisUnlock: " + (achievementThree.isUnlock);
+            textAchievementThree.text = "\nname: "+achievementThree.name+"\ndescription: "+achievementThree.description+"\ntotalStep: "+achievementThree.totalStep.ToString()+"\ncurrentStep: "+achievementThree.currentStep.ToString()+"\nisUnlock: " + (achievementThree.isUnlock) +"\nxp: " + (achievementThree.xp);
         }
     }
 }

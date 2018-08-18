@@ -6,6 +6,15 @@ namespace Ario.Models
 {
 
     [System.Serializable]
+    public class Player {
+        public string id;
+        public string name;
+        public string avatarUrl;
+        public bool isPublic;
+        public int level;
+    }
+
+    [System.Serializable]
     public class AchievementList
     {
         [System.Serializable]

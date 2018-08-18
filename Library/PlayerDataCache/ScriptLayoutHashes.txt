@@ -136,6 +136,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 44625db25774818f7ae04b9f2005ccad Assembly-CSharp.dll:.AuthenticationScript
+f1236efcb665a04768ecb6e3f9090036 Assembly-CSharp.dll:.StoreScript
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 96d0fbde9fd209878a0a291f82c9bcdd UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
@@ -153,4 +154,3 @@ c761f2e500a36c11fda1cc65473df706 Assembly-CSharp.dll:.AchievementScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ArioInAppPurchase
 c0eeb17f237968a469f7c5e85d8c4b40 Assembly-CSharp.dll:.LeaderboardScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MainMenuScene
-f1236efcb665a04768ecb6e3f9090036 Assembly-CSharp.dll:.StoreScript
