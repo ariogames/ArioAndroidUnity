@@ -69,9 +69,9 @@ public class AuthenticationScript : MonoBehaviour {
 
     private void OnGetPlayerInfo(Player player) {
         if (player.id.Equals("")) {
-            message.text = "player still not logged in.";
+            // player still not logged in
         } else {
-            message.text = "id: " + player.id + "  |  name: " + player.name + "  |  isPulbic:" + player.isPublic.ToString() + "  |  level: " + player.level.ToString();
+            //here is player info 
         }
     }
 }
