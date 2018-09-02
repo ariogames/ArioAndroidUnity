@@ -55,15 +55,6 @@ public class ArioGameService : MonoBehaviour
         this.APP_KEY = APP_KEY;
     }
 
-    public void setAutoStartSignInFlow(bool isAutoStartSignInFlow)
-    {
-        Debug.Log("AriogameService: set auto start sign in flow into " + isAutoStartSignInFlow);
-
-        #if (UNITY_ANDROID) && !UNITY_EDITOR
-            androidClass.CallStatic("setAutoStartSignInFlow", isAutoStartSignInFlow);
-        #endif
-    }
-
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -221,6 +212,22 @@ public class ArioGameService : MonoBehaviour
             androidClass.CallStatic("setStepAchievement", achievementID, StepNumber, APP_KEY) ; 
         #endif
         Debug.Log("ArioGameService :  SetStepAchievement() is called");
+
+    }
+
+    public void ResetAchievementState(string achievementID)
+    {
+        int temp;
+        if (!int.TryParse(achievementID, out temp))
+        {
+            Debug.LogError("ArioGameService :  Invalid achivementId: " + achievementID);
+            return;
+        }
+
+        #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("resetAchievementState", achievementID, APP_KEY) ; 
+        #endif
+        Debug.Log("ArioGameService :  ResetAchievementState() is called");
 
     }
     public void ShowAllAchievements()
