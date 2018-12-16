@@ -26,3 +26,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StoreService/StoreService.unity
     guid: 75db8f523e8d9484ebe080c871be7a59
+  - enabled: 1
+    path: Assets/Scenes/Save/SaveScene.unity
+    guid: 99773b40bb6b7e444aa4e4e4099cec27

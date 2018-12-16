@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Achievement/Achievement.unity
+- path: Assets/Scenes/Save/SaveScene.unity
   isLoaded: 1
   isActive: 1

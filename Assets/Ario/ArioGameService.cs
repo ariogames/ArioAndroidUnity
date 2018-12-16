@@ -574,4 +574,73 @@ public class ArioGameService : MonoBehaviour
         }
         _OnCheckUpdate(version);
     }
+
+    //=====================================================================================================Save Game
+
+    private Action<String> _onLoadSnapshot = null;
+    public System.Action<String> OnLoadSnapshot
+    {
+        get { return _onLoadSnapshot; }
+        set { _onLoadSnapshot = value; }
+    }
+
+    public void SaveGame(string data) {
+        Debug.Log("ArioGameService :  SaveGame() is called");
+
+        if ((APP_KEY.Equals("")))
+        {
+            Debug.LogError("ArioGameService :  Invalid  APP_KEY: " + APP_KEY);
+            return;
+        }
+
+            #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("saveSnapshot",
+                                    data,
+                                    APP_KEY) ; 
+            #endif
+    }
+
+        public void DeleteSaveGame() {
+        Debug.Log("ArioGameService :  DeleteSaveGame() is called");
+
+        if ((APP_KEY.Equals("")))
+        {
+            Debug.LogError("ArioGameService :  Invalid  APP_KEY: " + APP_KEY);
+            return;
+        }
+
+            #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("deleteSnapshot",
+                                    APP_KEY) ; 
+            #endif
+    }
+    public void LoadGame()
+    {
+        Debug.Log("ArioGameService :  LoadGame() is called");
+
+        if ((APP_KEY.Equals("")))
+        {
+            Debug.LogError("ArioGameService :  Invalid  APP_KEY: " + APP_KEY);
+            return;
+        }
+
+            #if (UNITY_ANDROID) && !UNITY_EDITOR
+            androidClass.CallStatic("loadSnapshot",
+                                    gameObject.name,
+                                    "OnLoadGame",
+                                    APP_KEY) ; 
+            #endif
+    }
+
+    private void OnLoadGame(string data)
+    {
+        if (_onLoadSnapshot != null)
+        {
+            _onLoadSnapshot(data);
+        }
+        else
+        {
+            Debug.Log("ArioGameService :  onLoadSnapshot Callback not defined!!");
+        }
+    }
 }
